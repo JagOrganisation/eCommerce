@@ -2,7 +2,7 @@ import { IProduct } from '@/store/product';
 
 export async function getProducts(): Promise<IProduct[]> {
     try {
-        // adding this delay timer to show Spinner on Loading Time
+        // adding this delay timer to show Spinner on Loading Time, not required for PROD env.
         await new Promise((resolve) => setTimeout(resolve, 2000));
         const response = await fetch('/data/products.json');
         if (!response.ok) {

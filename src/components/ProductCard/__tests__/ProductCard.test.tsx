@@ -2,36 +2,35 @@ import { render, screen } from '@testing-library/react';
 import { ProductCard } from '@/components';
 import { IProduct } from '@/store/product';
 
-describe('ProductCard', () => {
-    const mockProduct: IProduct = {
-        index: 1,
-        productName: 'Mock Wine',
-        price: '$12.00',
-        productImage: 'wine.png',
+describe('ProductCard Component UI', () => {
+    const sampleProduct: IProduct = {
+        index: 42,
+        productName: 'Test Beverage',
+        price: '$18.50',
+        productImage: 'beverage.png',
         isSale: true,
-        type: 'Wine',
+        type: 'Beverages',
     };
 
-    it('renders product name, price and image correctly', () => {
-        render(<ProductCard product={mockProduct} />);
+    it('displays product title, cost, and image properly', () => {
+        render(<ProductCard product={sampleProduct} />);
 
-        expect(screen.getByText('Mock Wine')).toBeInTheDocument();
+        expect(screen.getByText('Test Beverage')).toBeInTheDocument();
+        expect(screen.getByText('$18.50')).toBeInTheDocument();
 
-        expect(screen.getByText('$12.00')).toBeInTheDocument();
-
-        const image = screen.getByAltText('Mock Wine') as HTMLImageElement;
-        expect(image).toBeInTheDocument();
-        expect(image.src).toContain('/images/wine.png');
+        const imgElement = screen.getByAltText('Test Beverage') as HTMLImageElement;
+        expect(imgElement).toBeInTheDocument();
+        expect(imgElement.src).toContain('/images/beverage.png');
     });
 
-    it('shows "Sale" badge when isSale is true', () => {
-        render(<ProductCard product={mockProduct} />);
+    it('displays discount badge when product is on sale', () => {
+        render(<ProductCard product={sampleProduct} />);
         expect(screen.getByText('Sale')).toBeInTheDocument();
     });
 
-    it('does NOT show "Sale" badge when isSale is false', () => {
-        const productNoSale = { ...mockProduct, isSale: false };
-        render(<ProductCard product={productNoSale} />);
+    it('omits discount badge when product is not on sale', () => {
+        const nonSaleProduct = { ...sampleProduct, isSale: false };
+        render(<ProductCard product={nonSaleProduct} />);
         expect(screen.queryByText('Sale')).not.toBeInTheDocument();
     });
 });
