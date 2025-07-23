@@ -14,8 +14,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 <Image
                     src={`/images/${product.productImage}`}
                     alt={product.productName}
-                    width={200}
-                    height={200}
+                    fill
+                    sizes="200px"
                     className={styles.image}
                 />
             </div>

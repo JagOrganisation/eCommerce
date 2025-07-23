@@ -10,7 +10,6 @@ export interface IProduct {
     type: string;
 }
 
-
 type Status = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 export interface ProductState {

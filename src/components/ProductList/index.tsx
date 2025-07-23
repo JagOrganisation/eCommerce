@@ -23,7 +23,10 @@ export default function ProductList() {
         return matchesSearch && matchesFilter;
     });
 
-    if (status === 'loading') return <p className={styles.message}>Loading...</p>;
+    if (['idle', 'loading'].includes(status)) {
+        return <p className={styles.message}>Loading...</p>;
+    }
+
     if (error) return <p className={styles.message}>Error: {error}</p>;
 
     return (
