@@ -1,5 +1,6 @@
 import styles from './ProductCard.module.css';
 import { IProduct } from '@/store/product';
+import Image from 'next/image';
 
 interface ProductCardProps {
     product: IProduct;
@@ -10,9 +11,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className={styles.card}>
             <div className={styles.imageWrapper}>
                 {product.isSale && <span className={styles.saleSticker}>Sale</span>}
-                <img
+                <Image
                     src={`/images/${product.productImage}`}
                     alt={product.productName}
+                    width={200}
+                    height={200}
                     className={styles.image}
                 />
             </div>
