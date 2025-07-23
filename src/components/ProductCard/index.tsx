@@ -23,7 +23,7 @@ const ProductCard = ({ product, priority }: ProductCardProps) => {
             </div>
             <div className={styles.info}>
                 <div className={styles.titleRow}>
-                    <h3>{product.productName}</h3>
+                    <p>{product.productName}</p>
                     <p>{product.price}</p>
                 </div>
             </div>
