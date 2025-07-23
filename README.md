@@ -44,7 +44,7 @@ App will be available at [http://localhost:3000](http://localhost:3000)
 npm run build
 npm start
 ```
-We have deployed this App on Verce and Link for same is:
+We have deployed this App on Vercel and Link for same is:
 > https://e-commerce-five-ebon-61.vercel.app
 ---
 
