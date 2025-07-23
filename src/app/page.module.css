@@ -1,0 +1,19 @@
+:root {
+  --gray-rgb: 0, 0, 0;
+  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
+  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
+  --button-primary-hover: #383838;
+  --button-secondary-hover: #f2f2f2;
+  --font-family-sans: var(--font-geist-sans);
+}
+
+.page {
+  font-family: var(--font-family-sans);
+  padding: 40px 32px 0;
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 0px 32px;
+  }
+}
