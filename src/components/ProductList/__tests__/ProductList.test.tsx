@@ -10,24 +10,24 @@ jest.mock('@/store/hooks', () => ({
 }));
 
 jest.mock('@/store/product', () => {
-    const actual = jest.requireActual('@/store/product');
+    const original = jest.requireActual('@/store/product');
     return {
-        ...actual,
+        ...original,
         fetchProducts: jest.fn(),
     };
 });
 
-describe('ProductList Component', () => {
-    const dispatchMock = jest.fn();
+describe('ProductList UI Behavior', () => {
+    const fakeDispatch = jest.fn();
 
     beforeEach(() => {
         jest.clearAllMocks();
-        (useAppDispatch as jest.Mock).mockReturnValue(dispatchMock);
+        (useAppDispatch as jest.Mock).mockReturnValue(fakeDispatch);
     });
 
-    it('renders loading state', () => {
-        (useAppSelector as jest.Mock).mockImplementation((selector) =>
-            selector({
+    it('displays loader while fetching data', () => {
+        (useAppSelector as jest.Mock).mockImplementation((selectorFn) =>
+            selectorFn({
                 products: {
                     items: [],
                     status: 'loading',
@@ -42,13 +42,13 @@ describe('ProductList Component', () => {
         expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
     });
 
-    it('renders error state', () => {
-        (useAppSelector as jest.Mock).mockImplementation((selector) =>
-            selector({
+    it('shows error message on failure', () => {
+        (useAppSelector as jest.Mock).mockImplementation((selectorFn) =>
+            selectorFn({
                 products: {
                     items: [],
                     status: 'failed',
-                    error: 'Something went wrong',
+                    error: 'Unexpected error occurred',
                     filter: 'All',
                     search: '',
                 },
@@ -56,25 +56,25 @@ describe('ProductList Component', () => {
         );
 
         renderWithStore(<ProductList />);
-        expect(screen.getByText(/Error: Something went wrong/i)).toBeInTheDocument();
+        expect(screen.getByText(/Error: Unexpected error occurred/i)).toBeInTheDocument();
     });
 
-    it('renders product cards correctly', () => {
-        const mockProducts = [
+    it('renders individual product cards', () => {
+        const mockCatalog = [
             {
-                index: 1,
-                productName: 'Test Beer',
-                productImage: 'beer.png',
-                price: '$10',
+                index: 9,
+                productName: 'Premium Lager',
+                productImage: 'lager.png',
+                price: '$7.99',
                 type: 'Beer',
                 isSale: true,
             },
         ];
 
-        (useAppSelector as jest.Mock).mockImplementation((selector) =>
-            selector({
+        (useAppSelector as jest.Mock).mockImplementation((selectorFn) =>
+            selectorFn({
                 products: {
-                    items: mockProducts,
+                    items: mockCatalog,
                     status: 'succeeded',
                     error: null,
                     filter: 'All',
@@ -84,14 +84,14 @@ describe('ProductList Component', () => {
         );
 
         renderWithStore(<ProductList />);
-        expect(screen.getByText('Test Beer')).toBeInTheDocument();
-        expect(screen.getByText('$10')).toBeInTheDocument();
+        expect(screen.getByText('Premium Lager')).toBeInTheDocument();
+        expect(screen.getByText('$7.99')).toBeInTheDocument();
         expect(screen.getByText('Sale')).toBeInTheDocument();
     });
 
-    it('allows user to search', async () => {
-        (useAppSelector as jest.Mock).mockImplementation((selector) =>
-            selector({
+    it('updates search field on user input', async () => {
+        (useAppSelector as jest.Mock).mockImplementation((selectorFn) =>
+            selectorFn({
                 products: {
                     items: [],
                     status: 'succeeded',
@@ -103,8 +103,8 @@ describe('ProductList Component', () => {
         );
 
         renderWithStore(<ProductList />);
-        const input = screen.getByPlaceholderText(/search products/i);
-        await userEvent.type(input, 'test');
-        expect(input).toHaveValue('test');
+        const searchInput = screen.getByPlaceholderText(/search products/i);
+        await userEvent.type(searchInput, 'lager');
+        expect(searchInput).toHaveValue('lager');
     });
 });
