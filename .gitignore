@@ -1,0 +1,18 @@
+# dependencies
+node_modules/
+
+# production
+.next/
+out/
+
+# testing
+coverage/
+
+# system files
+.DS_Store
+.env
+.env.local
+*.log
+
+# IDE settings
+.vscode/
