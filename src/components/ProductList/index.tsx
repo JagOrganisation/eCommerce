@@ -35,6 +35,7 @@ export default function ProductList() {
                 <input
                     type="search"
                     placeholder={PRODUCT_SEARCH_TEXT}
+                    name='searchBox'
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                     className={styles.searchInput}
