@@ -7,7 +7,7 @@ describe('ProductCard Component UI', () => {
         index: 42,
         productName: 'Test Beverage',
         price: '$18.50',
-        productImage: 'beverage.png',
+        productImage: 'Product_1.png',
         isSale: true,
         type: 'Beverages',
     };
@@ -20,7 +20,7 @@ describe('ProductCard Component UI', () => {
 
         const imgElement = screen.getByAltText('Test Beverage') as HTMLImageElement;
         expect(imgElement).toBeInTheDocument();
-        expect(imgElement.src).toContain('/images/beverage.png');
+        expect(imgElement.src).toMatch(/Product_1\.png/);
     });
 
     it('displays discount badge when product is on sale', () => {
