@@ -107,4 +107,23 @@ describe('ProductList UI Behavior', () => {
         await userEvent.type(searchInput, 'lager');
         expect(searchInput).toHaveValue('lager');
     });
+
+    it('Show Error Message, if Searched Item does not exist in system', async () => {
+        (useAppSelector as jest.Mock).mockImplementation((selectorFn) =>
+            selectorFn({
+                products: {
+                    items: [],
+                    status: 'succeeded',
+                    error: null,
+                    filter: 'All',
+                    search: '',
+                },
+            })
+        );
+
+        renderWithStore(<ProductList />);
+        const searchInput = screen.getByPlaceholderText(/search products/i);
+        await userEvent.type(searchInput, 'aaaaaaaaaaaaa');
+        expect(screen.getByText(/No products found matching your criteria/i)).toBeInTheDocument();
+    });
 });

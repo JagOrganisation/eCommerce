@@ -77,11 +77,15 @@
     }
 
     .searchInput {
-        width: 60%;
+        width: 100px;
     }
 
     .select {
         width: 50%;
         padding-left: 0;
+    }
+
+    .message {
+        font-size: 14px;
     }
 }
