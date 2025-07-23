@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchProducts, setFilter } from '@/store/product';
 import styles from './ProductList.module.css';
 import { ProductCard } from '@/components';
-import { PRODUCT_FILTER_OPTIONS } from '@/constants/ProductConstants';
+import { PRODUCT_FILTER_OPTIONS, PRODUCT_SEARCH_TEXT } from '@/constants/ProductConstants';
 import { PRODUCT_NOT_FOUND } from '@/constants/ProductConstants';
 
 export default function ProductList() {
@@ -34,7 +34,7 @@ export default function ProductList() {
             <div className={styles.controlsWrapper}>
                 <input
                     type="search"
-                    placeholder="Search products..."
+                    placeholder={PRODUCT_SEARCH_TEXT}
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                     className={styles.searchInput}
