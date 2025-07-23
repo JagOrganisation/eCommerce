@@ -5,8 +5,8 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchProducts, setFilter } from '@/store/product';
 import styles from './ProductList.module.css';
 import { ProductCard } from '@/components';
-import { PRODUCT_FILTER_OPTIONS } from '@/constants/filters';
-import { NO_PRODUCT_FOUND_MSG } from '@/constants/filters';
+import { PRODUCT_FILTER_OPTIONS } from '@/constants/ProductConstants';
+import { PRODUCT_NOT_FOUND } from '@/constants/ProductConstants';
 
 export default function ProductList() {
     const dispatch = useAppDispatch();
@@ -58,12 +58,12 @@ export default function ProductList() {
 
             {filteredProducts.length === 0 ? (
                 <p className={styles.message}>
-                    {NO_PRODUCT_FOUND_MSG}
+                    {PRODUCT_NOT_FOUND}
                 </p>
             ) : (
                 <div className={styles.grid}>
-                    {filteredProducts.map((product) => (
-                        <ProductCard key={product.index} product={product} />
+                    {filteredProducts.map((product, index) => (
+                        <ProductCard key={product.index} product={product} priority={index === 0} />
                     ))}
                 </div>
             )}

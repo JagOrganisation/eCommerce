@@ -6,7 +6,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Accenture eCommerce App'
+  title: 'Products'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

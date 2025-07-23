@@ -4,19 +4,21 @@ import Image from 'next/image';
 
 interface ProductCardProps {
     product: IProduct;
+    priority?: boolean;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, priority }: ProductCardProps) => {
     return (
         <div className={styles.card}>
+            {product.isSale && <span className={styles.saleSticker}>Sale</span>}
             <div className={styles.imageWrapper}>
-                {product.isSale && <span className={styles.saleSticker}>Sale</span>}
                 <Image
                     src={`/images/${product.productImage}`}
                     alt={product.productName}
                     fill
                     sizes="200px"
                     className={styles.image}
+                    priority={priority}
                 />
             </div>
             <div className={styles.info}>
