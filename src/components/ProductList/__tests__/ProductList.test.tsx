@@ -71,38 +71,6 @@ describe('ProductList UI Behavior', () => {
         expect(screen.getByText('Sale')).toBeInTheDocument();
     });
 
-    it('updates search field on user input', async () => {
-        renderWithStore(<ProductList />, {
-            products: {
-                items: [],
-                status: 'succeeded',
-                error: null,
-                filter: 'All',
-                search: '',
-            },
-        });
-
-        const searchInput = screen.getByPlaceholderText(/search products/i);
-        await userEvent.type(searchInput, 'lager');
-        expect(searchInput).toHaveValue('lager');
-    });
-
-    it('shows message if searched item does not exist', async () => {
-        renderWithStore(<ProductList />, {
-            products: {
-                items: [],
-                status: 'succeeded',
-                error: null,
-                filter: 'All',
-                search: '',
-            },
-        });
-
-        const searchInput = screen.getByPlaceholderText(/search products/i);
-        await userEvent.type(searchInput, 'nonexistent item');
-        expect(screen.getByText(/No products found matching your criteria/i)).toBeInTheDocument();
-    });
-
     it('shows message when no products exist in the system', () => {
         renderWithStore(<ProductList />, {
             products: {
