@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchProducts, IProduct, setFilter } from '@/store/product';
 import styles from './ProductList.module.css';
 import { ProductCard, ProductModal } from '@/components';
-import { PRODUCT_FILTER_OPTIONS, PRODUCT_SEARCH_TEXT } from '@/constants/ProductConstants';
+import { TopPanel } from '@/components';
 import { PRODUCT_NOT_FOUND } from '@/constants/ProductConstants';
 
 export default function ProductList() {
@@ -32,40 +32,24 @@ export default function ProductList() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.controlsWrapper}>
-                <input
-                    type="search"
-                    placeholder={PRODUCT_SEARCH_TEXT}
-                    name='searchBox'
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                    className={styles.searchInput}
-                />
-                <div className={styles.filterWrapper}>
-                    <label htmlFor="filterSelect" className={styles.filterLabel}>Filter by</label>
-                    <select
-                        id="filterSelect"
-                        className={styles.select}
-                        value={filter}
-                        onChange={(e) => dispatch(setFilter(e.target.value))}
-                    >
-                        {PRODUCT_FILTER_OPTIONS.map((option) => (
-                            <option key={option} value={option}>
-                                {option}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </div>
+            <TopPanel
+                searchText={searchText}
+                onSearchChange={setSearchText}
+                filter={filter}
+                onFilterChange={(val) => dispatch(setFilter(val))}
+            />
 
             {filteredProducts.length === 0 ? (
-                <p className={styles.message}>
-                    {PRODUCT_NOT_FOUND}
-                </p>
+                <p className={styles.message}>{PRODUCT_NOT_FOUND}</p>
             ) : (
                 <div className={styles.grid}>
                     {filteredProducts.map((product, index) => (
-                        <ProductCard key={product.index} product={product} priority={index === 0} handleClickOnCard={() => setSelectedProduct(product)} />
+                        <ProductCard
+                            key={product.index}
+                            product={product}
+                            priority={index === 0}
+                            handleClickOnCard={() => setSelectedProduct(product)}
+                        />
                     ))}
                 </div>
             )}

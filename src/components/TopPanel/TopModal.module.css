@@ -1,0 +1,60 @@
+.controlsWrapper {
+    display: flex;
+    gap: 1rem;
+    border: 1px solid #ccc;
+    padding: 15px;
+    flex-wrap: wrap;
+}
+
+.searchInput {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+
+.select {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-clip: padding-box;
+    border-right: 1px solid #ccc;
+}
+
+.filterWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+.filterLabel {
+    font-weight: 500;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+/* Responsive tweaks */
+@media (max-width: 500px) {
+    .filterLabel {
+        font-size: 0.8rem;
+    }
+
+    .select {
+        width: 60%;
+        padding-left: 0;
+    }
+
+    .searchInput {
+        width: 155px;
+        padding-left: 5px;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 700px) {
+    .searchInput {
+        width: 165px;
+    }
+}
