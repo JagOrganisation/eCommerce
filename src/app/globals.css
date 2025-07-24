@@ -7,12 +7,17 @@
     --font-family-sans: var(--font-geist-sans);
     --background: #ffffff;
     --foreground: #171717;
+    --image-bg: transparent;
+    --img-hover-color: #f9f9f9;
+    --red: #e63946;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
+        --image-bg: #fff;
+        --background: #000;
+        --foreground: #fff;
+        --img-hover-color: #000;
     }
 }
 

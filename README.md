@@ -7,9 +7,12 @@ A modern eCommerce web application built using **Next.js**, **TypeScript**, and 
 ## Features
 
 - Product listing with filters and search
+- Product quick-view popup modal with accessibility support
 - Mobile responsive design
 - Modular styling with CSS Modules
 - Clean folder structure and scalable codebase
+- Basic accessibility features (aria labels, keyboard navigation, color contrast)
+
 
 ---
 

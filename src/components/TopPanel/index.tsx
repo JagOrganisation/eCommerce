@@ -10,15 +10,20 @@ interface TopPanelProps {
 
 const TopPanel = ({ searchText, onSearchChange, filter, onFilterChange }: TopPanelProps) => {
     return (
-        <div className={styles.controlsWrapper}>
-            <input
-                type="search"
-                placeholder={PRODUCT_SEARCH_TEXT}
-                name='searchBox'
-                value={searchText}
-                onChange={(e) => onSearchChange(e.target.value)}
-                className={styles.searchInput}
-            />
+        <section className={styles.controlsWrapper} aria-label="Product search and filter panel">
+            <div className={styles.searchGroup}>
+                <input
+                    type="search"
+                    id="searchBox"
+                    placeholder={PRODUCT_SEARCH_TEXT}
+                    name="searchBox"
+                    value={searchText}
+                    onChange={(e) => onSearchChange(e.target.value)}
+                    className={styles.searchInput}
+                    aria-label="Search products"
+                />
+            </div>
+
             <div className={styles.filterWrapper}>
                 <label htmlFor="filterSelect" className={styles.filterLabel}>Filter by</label>
                 <select
@@ -32,7 +37,7 @@ const TopPanel = ({ searchText, onSearchChange, filter, onFilterChange }: TopPan
                     ))}
                 </select>
             </div>
-        </div>
+        </section>
     );
 };
 

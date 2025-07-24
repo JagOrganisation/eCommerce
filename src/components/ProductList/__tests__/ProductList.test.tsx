@@ -111,7 +111,9 @@ describe('ProductList UI Behavior', () => {
         expect(screen.getByRole('heading', { name: /test gin/i })).toBeInTheDocument();
         expect(screen.getByText(/Price:\s*\$39\.99/i)).toBeInTheDocument();
 
-        const closeButton = screen.getByRole('button', { name: /×/i });
+        const closeButton = screen.getByRole('button', {
+            name: /close product details/i,
+        });
         await userEvent.click(closeButton);
 
         expect(screen.queryByRole('heading', { name: /test gin/i })).not.toBeInTheDocument();

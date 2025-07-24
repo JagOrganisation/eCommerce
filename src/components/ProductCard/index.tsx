@@ -10,7 +10,18 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, priority, handleClickOnCard }: ProductCardProps) => {
     return (
-        <div className={styles.card} onClick={() => handleClickOnCard?.(product)}>
+        <article
+            className={styles.card}
+            role="button"
+            tabIndex={0}
+            onClick={() => handleClickOnCard?.(product)}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    handleClickOnCard?.(product);
+                }
+            }}
+            aria-label={`View details for ${product.productName}`}
+        >
             {product.isSale && <span className={styles.saleSticker}>Sale</span>}
             <div className={styles.imageWrapper}>
                 <Image
@@ -28,8 +39,8 @@ const ProductCard = ({ product, priority, handleClickOnCard }: ProductCardProps)
                     <p>{product.price}</p>
                 </div>
             </div>
-        </div>
+        </article>
     );
-}
+};
 
-export default ProductCard
+export default ProductCard;
