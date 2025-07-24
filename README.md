@@ -23,8 +23,7 @@ A modern eCommerce web application built using **Next.js**, **TypeScript**, and 
     1.2. Install Dependencies
          npm install
 
-    1.3. Run Locally
-         npm run dev
+    1.3. npm run dev
          App will be available at [http://localhost:3000](http://localhost:3000)
 
    > 🚨 **Warning:** If you face any errors, delete the `node_modules` folder and `package-lock.json` file, then re-run `npm install`.
