@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchProducts, IProduct, setFilter } from '@/store/product';
 import styles from './ProductList.module.css';
-import { ProductCard, ProductModal } from '@/components';
-import { TopPanel } from '@/components';
+import { ProductCard, ProductModal, TopPanel } from '@/components';
 import { PRODUCT_NOT_FOUND } from '@/constants/ProductConstants';
 
 export default function ProductList() {
@@ -25,33 +24,51 @@ export default function ProductList() {
     });
 
     if (['idle', 'loading'].includes(status)) {
-        return <p className={styles.message}>Loading...</p>;
+        return (
+            <p className={styles.message} aria-live="polite">
+                Loading...
+            </p>
+        );
     }
 
-    if (error) return <p className={styles.message}>Error: {error}</p>;
+    if (error) {
+        return (
+            <p className={styles.message} role="alert">
+                Error: {error}
+            </p>
+        );
+    }
 
     return (
         <div className={styles.container}>
-            <TopPanel
-                searchText={searchText}
-                onSearchChange={setSearchText}
-                filter={filter}
-                onFilterChange={(val) => dispatch(setFilter(val))}
-            />
+            <section aria-label="Search and filter panel">
+                <TopPanel
+                    searchText={searchText}
+                    onSearchChange={setSearchText}
+                    filter={filter}
+                    onFilterChange={(val) => dispatch(setFilter(val))}
+                />
+            </section>
 
             {filteredProducts.length === 0 ? (
-                <p className={styles.message}>{PRODUCT_NOT_FOUND}</p>
+                <p className={styles.message} aria-live="polite">
+                    {PRODUCT_NOT_FOUND}
+                </p>
             ) : (
-                <div className={styles.grid}>
-                    {filteredProducts.map((product, index) => (
+                <section
+                    className={styles.grid}
+                    role="region"
+                    aria-labelledby="products-heading"
+                >
+                    {filteredProducts.map((product) => (
                         <ProductCard
                             key={product.index}
                             product={product}
-                            priority={index === 0}
+                            priority={product.index === 0}
                             handleClickOnCard={() => setSelectedProduct(product)}
                         />
                     ))}
-                </div>
+                </section>
             )}
 
             {selectedProduct && (
