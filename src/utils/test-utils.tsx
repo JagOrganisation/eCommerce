@@ -2,7 +2,6 @@ import { ReactElement } from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
 import { productReducer } from '@/store/product';
 import type { RootState } from '@/store';
 
