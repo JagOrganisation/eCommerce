@@ -5,11 +5,12 @@ import Image from 'next/image';
 interface ProductCardProps {
     product: IProduct;
     priority?: boolean;
+    handleClickOnCard?: (product: IProduct) => void;
 }
 
-const ProductCard = ({ product, priority }: ProductCardProps) => {
+const ProductCard = ({ product, priority, handleClickOnCard }: ProductCardProps) => {
     return (
-        <div className={styles.card}>
+        <div className={styles.card} onClick={() => handleClickOnCard?.(product)}>
             {product.isSale && <span className={styles.saleSticker}>Sale</span>}
             <div className={styles.imageWrapper}>
                 <Image

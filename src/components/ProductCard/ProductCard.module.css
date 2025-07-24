@@ -8,6 +8,7 @@
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     position: relative;
+    cursor: pointer;
 }
 
 .card:hover {
