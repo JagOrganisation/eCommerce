@@ -27,7 +27,7 @@ A modern eCommerce web application built using **Next.js**, **TypeScript**, and 
          npm run dev
          App will be available at [http://localhost:3000](http://localhost:3000)
 
-    If you face any errors, remove node_modules folder and package-lock.json file and re-run "npm install"
+   > 🚨 **Warning:** If you face any errors, delete the `node_modules` folder and `package-lock.json` file, then re-run `npm install`.
 ---
 
 
