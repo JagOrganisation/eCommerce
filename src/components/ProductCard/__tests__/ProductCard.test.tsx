@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { ProductCard } from '@/components';
 import { IProduct } from '@/store/product';
 
@@ -32,5 +32,16 @@ describe('ProductCard Component UI', () => {
         const nonSaleProduct = { ...sampleProduct, isSale: false };
         render(<ProductCard product={nonSaleProduct} />);
         expect(screen.queryByText('Sale')).not.toBeInTheDocument();
+    });
+
+    it('calls handleClickOnCard when card is clicked', () => {
+        const handleClickMock = jest.fn();
+        render(<ProductCard product={sampleProduct} handleClickOnCard={handleClickMock} />);
+
+        const cardElement = screen.getByText('Test Beverage').closest('div');
+        if (cardElement) fireEvent.click(cardElement);
+
+        expect(handleClickMock).toHaveBeenCalledTimes(1);
+        expect(handleClickMock).toHaveBeenCalledWith(sampleProduct);
     });
 });

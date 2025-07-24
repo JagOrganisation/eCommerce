@@ -5,6 +5,7 @@
         "price": "$49.99",
         "productImage": "Product_1.png",
         "productName": "Pure Blonde Crate",
+        "description": "Pure Blonde is Australia’s first ultra low-carb beer — a refreshing, full-flavoured lager brewed with no preservatives. Crafted for longer to reduce natural sugars, it offers 80% fewer carbs than regular beer and 50% fewer calories than wine per ml. A crisp, easy-drinking choice for the health-conscious.",
         "type": "Beer"
     },
     {
@@ -13,6 +14,7 @@
         "price": "$14.99",
         "productImage": "Product_2.png",
         "productName": "Victoria Bitter 4x6x375ml",
+        "description": "Victoria Bitter was first brewed by Thomas Aitkin in 1854 as a full flavoured, full strength and thirst quenching beer for the harsh Australian climate. A full flavoured, full strength beer; the gentle fruitiness of the aroma compliments the sweet maltine",
         "type": "Beer"
     },
     {
@@ -21,6 +23,7 @@
         "price": "$24.99",
         "productImage": "Product_3.png",
         "productName": "Kirin Megumi 4x6x330ml",
+        "description": "Kirin's special Megumi has pure, smooth flavours and a pale amber shine, crowned with a rich, creamy head. Only the first mix of malt and water is extracted when ingredients are at their purest.",
         "type": "Beer"
     },
     {
@@ -29,6 +32,7 @@
         "price": "$4.99",
         "productImage": "Product_4.jpeg",
         "productName": "Panhead CH Johnny Octane Can",
+        "description": "Panhead Johnny Octane is a bold, hop-charged craft beer with serious attitude. Packed with punchy citrus and pine notes, this high-octane brew delivers a full-throttle hit of bitterness and flavour. Not for the faint-hearted — this one’s built for speed and serious hop lovers.",
         "type": "Beer"
     },
     {
@@ -37,6 +41,7 @@
         "price": "$25.99",
         "productImage": "Product_5.jpeg",
         "productName": "Aquila Spark SauvB Bottle",
+        "description": "Aquila Spark SauvB is a crisp and vibrant sparkling Sauvignon Blanc, bursting with notes of tropical fruit, citrus, and fresh herbs. Lightly effervescent and refreshingly dry, it's perfect for sunny afternoons, celebrations, or a stylish sip anytime.",
         "type": "Wine"
     },
     {
@@ -45,6 +50,7 @@
         "price": "$29.99",
         "productImage": "Product_6.jpeg",
         "productName": "Bernadino Spumante Bottle",
+        "description": "Bernadino Spumante is a lively and refreshing Italian sparkling wine, perfect for celebrations or casual sipping. With delicate bubbles and notes of citrus, green apple, and white peach, it delivers a crisp and slightly sweet finish.",
         "type": "Wine"
     },
     {
@@ -53,6 +59,7 @@
         "price": "$69.99",
         "productImage": "Product_7.jpeg",
         "productName": "Grey Goose Orginal 10x12x50ml",
+        "description": "Grey Goose vodka is the result of an absolute determination to create a French vodka unlike any other. This extraordinary vodka is made from the best ingredients from France, soft winter wheat and Gensac spring water.",
         "type": "Spirits"
     },
     {
@@ -61,6 +68,7 @@
         "price": "$49.99",
         "productImage": "Product_8.jpeg",
         "productName": "Scrumpy RBerry 6x1.25L",
+        "description": "Scrumpy Rberry is a bold, fruity cider bursting with ripe raspberry flavour and a tangy finish. Sweet, juicy, and refreshingly smooth, this 6-pack of 1.25L bottles is perfect for sharing — or keeping all to yourself. Best served chilled.",
         "type": "Cider"
     }
 ]

@@ -16,6 +16,7 @@ export function renderWithStore(
     const store = configureStore({
         reducer: rootReducer,
         preloadedState,
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     });
 
     return {

@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchProducts, setFilter } from '@/store/product';
+import { fetchProducts, IProduct, setFilter } from '@/store/product';
 import styles from './ProductList.module.css';
-import { ProductCard } from '@/components';
+import { ProductCard, ProductModal } from '@/components';
 import { PRODUCT_FILTER_OPTIONS, PRODUCT_SEARCH_TEXT } from '@/constants/ProductConstants';
 import { PRODUCT_NOT_FOUND } from '@/constants/ProductConstants';
 
@@ -12,6 +12,7 @@ export default function ProductList() {
     const dispatch = useAppDispatch();
     const { items, filter, status, error } = useAppSelector((state) => state.products);
     const [searchText, setSearchText] = useState('');
+    const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
 
     useEffect(() => {
         dispatch(fetchProducts());
@@ -35,6 +36,7 @@ export default function ProductList() {
                 <input
                     type="search"
                     placeholder={PRODUCT_SEARCH_TEXT}
+                    name='searchBox'
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                     className={styles.searchInput}
@@ -63,9 +65,16 @@ export default function ProductList() {
             ) : (
                 <div className={styles.grid}>
                     {filteredProducts.map((product, index) => (
-                        <ProductCard key={product.index} product={product} priority={index === 0} />
+                        <ProductCard key={product.index} product={product} priority={index === 0} handleClickOnCard={() => setSelectedProduct(product)} />
                     ))}
                 </div>
+            )}
+
+            {selectedProduct && (
+                <ProductModal
+                    product={selectedProduct}
+                    onClose={() => setSelectedProduct(null)}
+                />
             )}
         </div>
     );

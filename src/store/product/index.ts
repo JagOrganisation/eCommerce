@@ -8,6 +8,7 @@ export interface IProduct {
     productImage: string;
     isSale: boolean;
     type: string;
+    description?: string
 }
 
 type Status = 'idle' | 'loading' | 'succeeded' | 'failed';

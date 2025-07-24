@@ -1,61 +1,46 @@
 import { screen } from '@testing-library/react';
 import { renderWithStore } from '@/utils/test-utils';
 import ProductList from '@/components/ProductList';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import userEvent from '@testing-library/user-event';
-
-jest.mock('@/store/hooks', () => ({
-    useAppDispatch: jest.fn(),
-    useAppSelector: jest.fn(),
-}));
 
 jest.mock('@/store/product', () => {
     const original = jest.requireActual('@/store/product');
     return {
         ...original,
-        fetchProducts: jest.fn(),
+        fetchProducts: jest.fn(() => () => Promise.resolve()),
     };
 });
 
 describe('ProductList UI Behavior', () => {
-    const fakeDispatch = jest.fn();
-
     beforeEach(() => {
         jest.clearAllMocks();
-        (useAppDispatch as jest.Mock).mockReturnValue(fakeDispatch);
     });
 
     it('displays loader while fetching data', () => {
-        (useAppSelector as jest.Mock).mockImplementation((selectorFn) =>
-            selectorFn({
-                products: {
-                    items: [],
-                    status: 'loading',
-                    error: null,
-                    filter: 'All',
-                    search: '',
-                },
-            })
-        );
+        renderWithStore(<ProductList />, {
+            products: {
+                items: [],
+                status: 'loading',
+                error: null,
+                filter: 'All',
+                search: '',
+            },
+        });
 
-        renderWithStore(<ProductList />);
         expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
     });
 
     it('shows error message on failure', () => {
-        (useAppSelector as jest.Mock).mockImplementation((selectorFn) =>
-            selectorFn({
-                products: {
-                    items: [],
-                    status: 'failed',
-                    error: 'Unexpected error occurred',
-                    filter: 'All',
-                    search: '',
-                },
-            })
-        );
+        renderWithStore(<ProductList />, {
+            products: {
+                items: [],
+                status: 'failed',
+                error: 'Unexpected error occurred',
+                filter: 'All',
+                search: '',
+            },
+        });
 
-        renderWithStore(<ProductList />);
         expect(screen.getByText(/Error: Unexpected error occurred/i)).toBeInTheDocument();
     });
 
@@ -71,59 +56,96 @@ describe('ProductList UI Behavior', () => {
             },
         ];
 
-        (useAppSelector as jest.Mock).mockImplementation((selectorFn) =>
-            selectorFn({
-                products: {
-                    items: mockCatalog,
-                    status: 'succeeded',
-                    error: null,
-                    filter: 'All',
-                    search: '',
-                },
-            })
-        );
+        renderWithStore(<ProductList />, {
+            products: {
+                items: mockCatalog,
+                status: 'succeeded',
+                error: null,
+                filter: 'All',
+                search: '',
+            },
+        });
 
-        renderWithStore(<ProductList />);
         expect(screen.getByText('Premium Lager')).toBeInTheDocument();
         expect(screen.getByText('$7.99')).toBeInTheDocument();
         expect(screen.getByText('Sale')).toBeInTheDocument();
     });
 
     it('updates search field on user input', async () => {
-        (useAppSelector as jest.Mock).mockImplementation((selectorFn) =>
-            selectorFn({
-                products: {
-                    items: [],
-                    status: 'succeeded',
-                    error: null,
-                    filter: 'All',
-                    search: '',
-                },
-            })
-        );
+        renderWithStore(<ProductList />, {
+            products: {
+                items: [],
+                status: 'succeeded',
+                error: null,
+                filter: 'All',
+                search: '',
+            },
+        });
 
-        renderWithStore(<ProductList />);
         const searchInput = screen.getByPlaceholderText(/search products/i);
         await userEvent.type(searchInput, 'lager');
         expect(searchInput).toHaveValue('lager');
     });
 
-    it('Show Error Message, if Searched Item does not exist in system', async () => {
-        (useAppSelector as jest.Mock).mockImplementation((selectorFn) =>
-            selectorFn({
-                products: {
-                    items: [],
-                    status: 'succeeded',
-                    error: null,
-                    filter: 'All',
-                    search: '',
-                },
-            })
-        );
+    it('shows message if searched item does not exist', async () => {
+        renderWithStore(<ProductList />, {
+            products: {
+                items: [],
+                status: 'succeeded',
+                error: null,
+                filter: 'All',
+                search: '',
+            },
+        });
 
-        renderWithStore(<ProductList />);
         const searchInput = screen.getByPlaceholderText(/search products/i);
-        await userEvent.type(searchInput, 'aaaaaaaaaaaaa');
+        await userEvent.type(searchInput, 'nonexistent item');
         expect(screen.getByText(/No products found matching your criteria/i)).toBeInTheDocument();
+    });
+
+    it('shows message when no products exist in the system', () => {
+        renderWithStore(<ProductList />, {
+            products: {
+                items: [],
+                status: 'succeeded',
+                error: null,
+                filter: 'All',
+                search: '',
+            },
+        });
+
+        expect(screen.getByText(/No products found matching your criteria/i)).toBeInTheDocument();
+    });
+
+    it('opens and closes the product modal when a product is clicked', async () => {
+        const mockProduct = {
+            index: 1,
+            productName: 'Test Gin',
+            productImage: 'testgin.png',
+            price: '$39.99',
+            type: 'Spirits',
+            isSale: false,
+        };
+
+        renderWithStore(<ProductList />, {
+            products: {
+                items: [mockProduct],
+                status: 'succeeded',
+                error: null,
+                filter: 'All',
+                search: '',
+            },
+        });
+
+        const productTexts = screen.getAllByText('Test Gin');
+        await userEvent.click(productTexts[0]);
+
+        expect(screen.getByRole('heading', { name: /test gin/i })).toBeInTheDocument();
+        expect(screen.getByText(/Price:\s*\$39\.99/i)).toBeInTheDocument();
+
+        const closeButton = screen.getByRole('button', { name: /×/i });
+        await userEvent.click(closeButton);
+
+        expect(screen.queryByRole('heading', { name: /test gin/i })).not.toBeInTheDocument();
     });
 });
