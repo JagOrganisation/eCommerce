@@ -18,7 +18,7 @@ A modern eCommerce web application built using **Next.js**, **TypeScript**, and 
 ### 1. How to Run this App on local:
     1.1 Clone this Repo
         git clone https://github.com/JagOrganisation/eCommerce.git
-        cd eCommerce-app
+        cd eCommerce
 
     1.2. Install Dependencies
          npm install
